@@ -1,0 +1,28 @@
+class Solution(object):
+    def searchMatrix(self, matrix, target):
+        def binarysearch(arr,left,right):
+            if left<= right:
+                mid = left+(right-left)//2
+                if arr[mid]==target:
+                    return True
+                elif arr[mid] < target:
+                    return binarysearch(arr,mid+1,right)
+                elif arr[mid] > target:
+                    return binarysearch(arr,left,mid-1)
+            else:
+                return False            
+
+        def finalsearchmatrix(left,right):  
+            if left <=right: 
+                mid = left+(right-left)//2
+                if matrix[mid][0] <= target <= matrix[mid][len(matrix[mid])-1]:
+                    return binarysearch(matrix[mid],0,len(matrix[mid])-1)
+
+                if target < matrix[mid][0] :
+                    return finalsearchmatrix(left,mid-1)
+                elif target > matrix[mid][0]:
+                    return finalsearchmatrix(mid+1,right)
+        
+
+        return finalsearchmatrix(0,len(matrix)-1)
+
